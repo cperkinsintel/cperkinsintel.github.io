@@ -2,14 +2,15 @@
 <html>
   <head>
     <title>Collage of Tears</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   </head>
   <body>
     <div class="fc">
       <div>
         <header><h1>Welcome to the Collage of Tears</h1></header>
-        <button onclick="say_hello()">Flash!</button>
+        <button onclick="say_hi()">Flash!</button>
       </div>
-      <iframe id="flasher" src="//127.0.0.1:3001/"></iframe>
+      <!-- <iframe id="flasher" src="//127.0.0.1:3001/"></iframe> -->
     </div>
     <script>
       
@@ -25,6 +26,19 @@
         // now transfer array buffer
         flasher.contentWindow.postMessage(array_buffer, "*", [array_buffer])
         //console.log("len after transfer", array_buffer.length );
+      }
+      
+      function say_hi(){
+        $.ajax({
+          url: "http://127.0.0.1:3001/hi",
+          //method:"POST"
+          })
+        .then(function(d){
+          console.log("HI response: ", d);
+        })
+        .fail(function(er){
+          console.log("FAIL: ", er);
+        });
       }
     </script>
   </body>

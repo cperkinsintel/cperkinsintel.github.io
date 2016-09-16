@@ -1,6 +1,6 @@
 /*jshint node:true, esversion:6 */
 
-/*
+
 var express = require('express');
 
 var app     = express();
@@ -8,17 +8,31 @@ var app     = express();
 //  setTimeout(function(){ next(); }, 2000);
 //}).use(express.static('client'));
 
+//CORS middleware
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+app.use(allowCrossDomain);
 app.use(express.static('flasher'));
 
 app.get('/hello', function (req, res) {
   res.send('Hello World!');
 });
 
-app.listen(3001, function () {
-  console.log('Example app listening on port 3000!');
+app.get('/hi', function (req, res) {
+  res.send('HIYA BUDDY!');
 });
-*/
 
+app.listen(3001, function () {
+  console.log('Example app listening on port 3001!');
+});
+
+
+/*
 var https = require('https');
 var fs = require('fs');
 
@@ -31,3 +45,4 @@ var a = https.createServer(options, function (req, res) {
   res.writeHead(200);
   res.end("hello world\n");
 }).listen(3001);
+*/
