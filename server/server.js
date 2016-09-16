@@ -2,8 +2,19 @@
 
 
 var express = require('express');
-
 var app     = express();
+
+var https = require('https');
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+var httpsServer = https.createServer(app)
+
+
 //app.use(function(req, res, next){
 //  setTimeout(function(){ next(); }, 2000);
 //}).use(express.static('client'));
@@ -27,7 +38,7 @@ app.get('/hi', function (req, res) {
   res.send('HIYA BUDDY!');
 });
 
-app.listen(3001, function () {
+/*app.*/ httpsServer.listen(3001, function () {
   console.log('Example app listening on port 3001!');
 });
 
