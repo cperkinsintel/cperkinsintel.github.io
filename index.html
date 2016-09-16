@@ -1,1 +1,31 @@
-<h1>Hello <b>World</b></h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Collage of Tears</title>
+  </head>
+  <body>
+    <div class="fc">
+      <div>
+        <header><h1>Welcome to the Collage of Tears</h1></header>
+        <button onclick="say_hello()">Flash!</button>
+      </div>
+      <iframe id="flasher" src="http://127.0.0.1:3001/flasher.html"></iframe>
+    </div>
+    <script>
+      
+      
+      function say_hello(){
+        var flasher = document.getElementById("flasher");
+        flasher.contentWindow.postMessage("message-hi", "*");
+        
+        var object = {dd:"ddd", sub:{xx:"dd"}, num:666};
+        var string = JSON.stringify(object);
+        var uint8_array = new TextEncoder(document.characterSet.toLowerCase()).encode(string);
+        var array_buffer = uint8_array.buffer;
+        // now transfer array buffer
+        flasher.contentWindow.postMessage(array_buffer, "*", [array_buffer])
+        //console.log("len after transfer", array_buffer.length );
+      }
+    </script>
+  </body>
+</html>

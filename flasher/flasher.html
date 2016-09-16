@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flasher</title>
+  </head>
+  <body>
+    <h1>Flasher Says Hello</h1>
+    <div id="output">
+    </div>
+    <script>
+      
+      
+      function log_message(msg){
+        var output = document.getElementById("output");
+        output.innerHTML += msg + "<br>";
+      }
+      
+      
+      window.addEventListener("message", receiveMessage, false);
+
+      function receiveMessage(event){
+         log_message("event received!! " + event.data);
+        console.dir(event);
+        
+        if(event.data instanceof ArrayBuffer){
+          var array_buffer = event.data;
+          var decoder = new TextDecoder("utf-8");
+          var view = new DataView(array_buffer, 0, array_buffer.byteLength);
+          var string = decoder.decode(view);
+          //var object = JSON.parse(string);
+          log_message("data received" + string);
+        }
+        
+      }
+    </script>
+  </body>
+</html>
