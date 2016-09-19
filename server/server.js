@@ -12,6 +12,8 @@
     SETUP HTTP WEB SERVER
    ------------------- */
 
+var http_or_https = 'https';
+
 var express = require('express');
 var app     = express();
 
@@ -19,13 +21,16 @@ var http  = require('http');
 
 var httpServer = http.createServer(app);
 
-httpServer.listen(3001, function () {
-  console.log('Example app listening on port 3001!');
-});
+if(http_or_https == 'http'){
+  httpServer.listen(3001, function () {
+    console.log('Example HTTP app listening on port 3001!');
+  });
+}
+
 
 /* -------------------
-    _NOT_ using https
-
+    HTTPS
+   ------------------- */
 var https = require('https');
 var fs = require('fs');
 
@@ -35,8 +40,12 @@ var options = {
 };
 
 var httpsServer = https.createServer(options, app);
+if(http_or_https == 'https'){
+  httpsServer.listen(3001, function () {
+    console.log('Example HTTPS app listening on port 3001!');
+  });
+}
 
-*/
 
 /* -------------------
     CORS middleware
