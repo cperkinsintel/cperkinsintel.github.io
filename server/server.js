@@ -12,7 +12,7 @@
     SETUP HTTP WEB SERVER
    ------------------- */
 
-var http_or_https = 'http';
+var http_or_https = 'https';
 
 var express = require('express');
 var app     = express();
