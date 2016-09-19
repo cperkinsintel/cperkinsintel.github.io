@@ -13,7 +13,8 @@ And the web server is running locally.
 Setup
 -----
 
-1. Clone Repo
+1. Clone Repo and cd into its directory (`cd cperkinsintel.github.io`)
+2. Run `npm install`
 2. Start local http server (`npm start`)
 
 
