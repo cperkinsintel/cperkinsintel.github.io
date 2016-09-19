@@ -12,7 +12,7 @@
     SETUP HTTP WEB SERVER
    ------------------- */
 
-var http_or_https = 'https';
+var http_or_https = 'http';
 
 var express = require('express');
 var app     = express();
@@ -80,7 +80,8 @@ app.get('/hello', function (req, res) {
    ------------------- */
 app.get('/hi', function (req, res) {
   if(req.get('Origin') == 'https://cperkinsintel.github.io'){
-    res.send({a:4, b:[10,20,30], c:"HIhA BUDDY", d:req.get('Origin'), e:"Access Successfully Controllled"});
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({a:4, b:[10,20,30], c:"HIhA BUDDY", d:req.get('Origin'), e:"Access Successfully Controllled"}));
   }else{
     res.status(500).json({error:"disallowed"});
   }
@@ -100,6 +101,7 @@ app.get('/hi', function (req, res) {
     All actions in this handler should be secure (no file access, etc.)
    ------------------- */
 app.get('/comm1.js', function (req, res) {
+    res.setHeader('Content-Type', 'text/javascript');
     res.send('function forest(){ console.log("Served to All. No Access Origin control.");}  forest();');
 });
 
