@@ -1,11 +1,32 @@
 /*jshint node:true, esversion:6 */
 
+/*
+  This demonstrates using an HTTP server on localhost and fielding AJAX responses from 
+  a client.
+  
+  Pretty simple. 
+
+*/
+
+/* -------------------
+    SETUP HTTP WEB SERVER
+   ------------------- */
 
 var express = require('express');
 var app     = express();
 
-var https = require('https');
 var http  = require('http');
+
+var httpServer = http.createServer(app);
+
+httpServer.listen(3001, function () {
+  console.log('Example app listening on port 3001!');
+});
+
+/* -------------------
+    _NOT_ using https
+
+var https = require('https');
 var fs = require('fs');
 
 var options = {
@@ -13,16 +34,18 @@ var options = {
   cert: fs.readFileSync('cert.pem')
 };
 
-//var httpsServer = https.createServer(options, app);
-var httpServer = http.createServer(app);
+var httpsServer = https.createServer(options, app);
 
-//app.use(function(req, res, next){
-//  setTimeout(function(){ next(); }, 2000);
-//}).use(express.static('client'));
+*/
 
-//CORS middleware
+/* -------------------
+    CORS middleware
+    
+    the Access-Control-Allow-Origin makes sure that only 
+    OUR cloud tool can reach the local webserver for Ajax calls.
+   ------------------- */
 var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'https://cperkinsintel.github.io');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -35,30 +58,42 @@ app.get('/hello', function (req, res) {
   res.send('Hello World!');
 });
 
+
+/* -------------------
+   RESPOND and VERIFY ORIGIN
+
+  This request is made by the client via Ajax. The Access-Control-Allow-Option above 
+  will ensure that this request only comes from the correct referrer.
+  
+  BUT - if an attacker were to bind in via a <script> declaration, the browser won't check.  
+  
+  Therefore, we ALWAYS check origin ourselves.
+   ------------------- */
 app.get('/hi', function (req, res) {
-  res.send('HIYA BUDDY!');
+  if(req.get('Origin') == 'https://cperkinsintel.github.io'){
+    res.send({a:4, b:[10,20,30], c:"HIhA BUDDY", d:req.get('Origin'), e:"Access Successfully Controllled"});
+  }else{
+    res.status(500).json({error:"disallowed"});
+  }
 });
 
+
+
+/* -------------------
+   SERVE JS WITHOUT VERIFYING ORIGIN
+   
+    Unlike the Ajax request, a resource requested by <script> tag does NOT include
+    an Origin or Referrer in the request header. 
+    Additionally, resources requested by <script> are not subjectd ot Access-Control-Allow-Origin.
+    
+    Therefore, this type of communication should be avoided, or only used to serve supporting JS
+    
+    All actions in this handler should be secure (no file access, etc.)
+   ------------------- */
 app.get('/comm1.js', function (req, res) {
-  res.send('function forest(){ console.log("Forestry");}  forest();');
-});
-
-/*app.*/ httpServer.listen(3001, function () {
-  console.log('Example app listening on port 3001!');
+    res.send('function forest(){ console.log("Served to All. No Access Origin control.");}  forest();');
 });
 
 
-/*
-var https = require('https');
-var fs = require('fs');
 
-var options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-};
 
-var a = https.createServer(options, function (req, res) {
-  res.writeHead(200);
-  res.end("hello world\n");
-}).listen(3001);
-*/
