@@ -38,6 +38,10 @@ app.get('/hi', function (req, res) {
   res.send('HIYA BUDDY!');
 });
 
+app.get('/comm1.js', function (req, res) {
+  res.send('function forest(){ console.log("Forestry");}  forest();');
+});
+
 /*app.*/ httpsServer.listen(3001, function () {
   console.log('Example app listening on port 3001!');
 });
