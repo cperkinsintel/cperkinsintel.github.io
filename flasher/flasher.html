@@ -5,6 +5,7 @@
   </head>
   <body>
     <h1>Flasher Says Hello</h1>
+    <button onclick="RSVP">RSVP</button>
     <div id="output">
     </div>
     <script>
@@ -30,7 +31,11 @@
           //var object = JSON.parse(string);
           log_message("data received" + string);
         }
-        
+      }
+      
+      function RSVP(){
+        console.log("Let's try this");
+        window.opener.postMessage("Thank You Very Much", "*");
       }
     </script>
   </body>

@@ -11,10 +11,18 @@
     <div class="fc">
       <div>
         <header><h1>Welcome to the Collage of Tears</h1></header>
-        <button onclick="say_hi()">HI!</button>
-        <button onclick="make_connection()">Make Connection</button>
-        <button onclick="say_hello()">HELLO!</button>
-        <button onclick="say_howdy()">HOWDY!</button>
+        Ajax: <button onclick="say_hi()">HI!</button>
+        <div>
+          WebSocket:
+          <button onclick="make_connection()">Make Connection</button>
+          <button onclick="say_hello()">HELLO!</button>
+        </div>
+        <div>
+          Window
+          <button onclick="open_win">Open Win</button>
+          <button onclick="say_howdy()">HOWDY!</button>
+        </div>
+        
       </div>
       <div>
         <img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy" width="200">
@@ -56,8 +64,10 @@
          WINDOW OPEN
          --------------- */
       var otherwin;
-      function say_howdy(){
+      function open_win(){
         otherwin = window.open("http://127.0.0.1:3001/flasher.html");
+      }
+      function say_howdy(){
         otherwin.postMessage("hello there!", "*");
       }
       
