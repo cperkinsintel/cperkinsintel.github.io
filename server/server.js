@@ -12,7 +12,7 @@
     SETUP HTTP WEB SERVER
    ------------------- */
 
-var http_or_https = 'https';
+var http_or_https = 'http';
 
 var express = require('express');
 var app     = express();
@@ -36,7 +36,12 @@ var fs = require('fs');
 
 var options = {
   key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  cert: fs.readFileSync('cert.pem'),
+  /*
+  requestCert: false,
+  rejectUnauthorized:false,
+  ca:[]
+  */
 };
 
 var httpsServer = https.createServer(options, app);
