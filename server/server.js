@@ -92,6 +92,12 @@ app.get('/hi', function (req, res) {
   }
 });
 
+app.get('/fish.jpg', function(req, res){
+  console.log("Origin when requesting Fish", req.get('Origin'));
+  res.setHeader('Content-Type', 'image/jpeg');
+  res.send('');
+})
+
 
 
 /* -------------------
