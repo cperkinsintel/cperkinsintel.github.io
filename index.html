@@ -64,10 +64,8 @@
          WINDOW OPEN
          --------------- */
       var otherwin;
-      function open_win(){
-        otherwin = window.open("http://127.0.0.1:3001/flasher.html");
-      }
       function say_howdy(){
+        otherwin = window.open("http://127.0.0.1:3001/flasher.html");
         otherwin.postMessage("hello there!", "*");
       }
       
