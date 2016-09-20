@@ -20,8 +20,11 @@
       window.addEventListener("message", receiveMessage, false);
 
       function receiveMessage(event){
-         log_message("event received!! " + event.data);
+         log_message("event received!! " + event.data + " " + event.origin);
         console.dir(event);
+        
+        //ENFORCE ORIGIN CHECK
+        if(event.origin != "https://cperkinsintel.github.io") { return ;}
         
         if(event.data instanceof ArrayBuffer){
           var array_buffer = event.data;
@@ -35,7 +38,7 @@
       
       function RSVP(){
         console.log("Let's try this");
-        window.opener.postMessage("Thank You Very Much", "*");
+        window.opener.postMessage("Thank You Very Much", "https://cperkinsintel.github.io");
       }
     </script>
   </body>

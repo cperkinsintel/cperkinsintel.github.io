@@ -23,15 +23,19 @@ Test
 
 1. Open Browser to https://cperkinsintel.github.io
 2. Open Console in Browser.
-3. Click HI! button
+3. Click _Open Win_ button. Flasher window/tab opens
+4. Click _HOWDY!_ button
+5. Go to Flasher, see that it has received the message.
+6. Click _RSVP_ button in Flasher.
+7. Return to main tab and see the rsvp has been received in the console.
 
 
 
-In the console you will see that two Javascript files (comm1.js and comm2.js) have been requested from the local http server and fulfilled.  Note that resources requested by `<script>` tags have no enforcement of origin.
+Ultimately, this attempted five different ways of connecting
 
-### Click HI! button
-The locally running  web server 
-- receives the request
-- verifies it came from https://cperkinsintel.github.io
-- replies with content. (which you will see in the console).
+1. Ajax connection (Chrome in Win only)
+2. Web Socket (Chrome in Win)
+3. Basic Image Request (works everywhere)
+4. Iframe (removed, fails everywhere if page is served via HTTPS)
+5. Separate Window. (works everywhere)
 
