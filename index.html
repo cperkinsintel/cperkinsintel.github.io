@@ -3,6 +3,7 @@
   <head>
     <title>Collage of Tears</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script src="http://127.0.0.1:3001/comm1.js"></script>
     <script src="http://127.0.0.1:3001/comm2.js"></script>
   </head>
@@ -11,9 +12,11 @@
       <div>
         <header><h1>Welcome to the Collage of Tears</h1></header>
         <button onclick="say_hi()">HI!</button>
+        <button onclick="make_connection()">Make Connection</button>
+        <button onclick="say_hello()">HELLO!</button>
       </div>
       <div>
-        <img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy">
+        <img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy" width="200">
         <img src="http://127.0.0.1:3001/fish.jpg" alt="fish">
       </div>
     </div>
@@ -30,6 +33,23 @@
           console.log("FAIL: ", er);
         });
       }
+      /* ---------------
+         WEB SOCKET
+         --------------- */
+      var socket;
+      
+      function make_connection(){
+        socket = io("http://127.0.0.1:3001");
+        socket.on("news", function(data){
+          console.log("news received", data);
+        });
+      }
+      
+      
+      function say_hello(){
+        socket.emit("hello", {greeting:"hello"});
+      }
+      
     </script>
   </body>
 </html>

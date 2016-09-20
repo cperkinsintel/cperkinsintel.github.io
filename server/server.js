@@ -82,6 +82,8 @@ app.get('/hello', function (req, res) {
   BUT - if an attacker were to bind in via a <script> declaration, the browser won't check.  
   
   Therefore, we ALWAYS check origin ourselves.
+  
+  Q: can the maker of the Ajax call change that header?
    ------------------- */
 app.get('/hi', function (req, res) {
   if(req.get('Origin') == 'https://cperkinsintel.github.io'){
@@ -93,11 +95,10 @@ app.get('/hi', function (req, res) {
 });
 
 app.get('/fish.jpg', function(req, res){
-  console.log("Origin when requesting Fish", req.get('Origin'));
+  console.log("Origin when requesting Fish", req.get('Origin')); //undefined
   res.setHeader('Content-Type', 'image/jpeg');
   res.send('');
-})
-
+});
 
 
 /* -------------------
@@ -117,5 +118,19 @@ app.get('/comm1.js', function (req, res) {
 });
 
 
+/* -------------------
+    SOCKET.IO websockets
+   ------------------- */
+var socketio = require('socket.io');
+var io       = socketio(httpServer);
 
-
+io.on('connection', function(socket){
+  console.log('connection received from a client');
+  //give the connected client the news.
+  socket.emit("news", {latest:"man landed on moon"});
+  
+  //if client says hello
+  socket.on("hello", function(d){
+    console.log("a client says", d);
+  });
+});
