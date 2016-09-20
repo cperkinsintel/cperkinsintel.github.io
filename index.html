@@ -28,6 +28,10 @@
       .ajax, .ws, .win { 
         margin: 10px;
       }
+      
+      .hidden { 
+        display:none;
+      }
     </style>
     <script>
       /* ---------------
@@ -35,6 +39,10 @@
          --------------- */
       function hide_controls(){
         $(".controls").hide();
+      }
+      
+      function notify_no_flasher(){
+        $(".notif").removeClass("hidden");
       }
     </script>
   </head>
@@ -59,11 +67,13 @@
         
       </div>
       <div>
-        <!--<img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy" width="200"> -->
+        <img class="check" src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="" width="300" onerror="notify_no_flasher()"> 
+        <div class="notif hidden">Intel XDK Flash App Not Running</div>
+        
+        <!-- CHROME ONLY 
         <object class="check" data="http://127.0.0.1:3001/chris-tango_sm.jpg" type="image/jpeg">
           <div class="notif">Intel XDK Flash App Not Running</div>
-
-        </object>
+        </object> -->
       </div>
     </div>
     <script>

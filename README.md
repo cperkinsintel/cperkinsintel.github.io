@@ -35,7 +35,8 @@ Ultimately, this attempted five different ways of connecting
 
 1. Ajax connection (Chrome in Win only)
 2. Web Socket (Chrome in Win)
-3. Basic Image Request (works everywhere)
-4. Iframe (removed, fails everywhere if page is served via HTTPS)
-5. Separate Window. (works everywhere)
+3. Iframe (removed, fails everywhere if page is served via HTTPS)
+4. Separate Window. (works everywhere)
+5. Basic Image Request with JS fallback (works everywhere)
+6. `<data>` img request with HTML fallback (Chrome Win only)
 
