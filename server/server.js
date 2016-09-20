@@ -130,8 +130,8 @@ io.on('connection', function(socket){
   socket.emit("news", {latest:"man landed on moon"});
   
   //if client says hello
-  socket.on("hello", function(d, ack){
+  socket.on("hello", function(d/*, ack */){
     console.log("a client says", d);
-    ack({reply:"hello back at ya"});
+    //ack({reply:"hello back at ya"});
   });
 });

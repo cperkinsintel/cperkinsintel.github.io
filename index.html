@@ -48,9 +48,9 @@
       
       
       function say_hello(){
-        socket.emit("hello", {greeting:"hello"}, function(d){
+        socket.emit("hello", {greeting:"hello"} /*, function(d){
           console.log("HELLO -- ACK!!", d);
-        });
+        }*/);
       }
       /* ---------------
          WINDOW OPEN
