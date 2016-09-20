@@ -14,6 +14,7 @@
         <button onclick="say_hi()">HI!</button>
         <button onclick="make_connection()">Make Connection</button>
         <button onclick="say_hello()">HELLO!</button>
+        <button onclick="say_howdy()">HOWDY!</button>
       </div>
       <div>
         <img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy" width="200">
@@ -41,15 +42,30 @@
       function make_connection(){
         socket = io("http://127.0.0.1:3001");
         socket.on("news", function(data){
-          console.log("news received", data);
+          console.log("YAY!! news received", data);
         });
       }
       
       
       function say_hello(){
-        socket.emit("hello", {greeting:"hello"});
+        socket.emit("hello", {greeting:"hello"}, function(d){
+          console.log("HELLO -- ACK!!", d);
+        });
+      }
+      /* ---------------
+         WINDOW OPEN
+         --------------- */
+      function say_howdy(){
+        var w = window.open("http://127.0.0.1:3001/flasher.html");
+        w.postMessage("hello there!", "*");
       }
       
+      
+      function receiveMessage(event){
+        console.log("message received", event.origin);
+        
+      }
+      window.addEventListener("message", receiveMessage, false);
     </script>
   </body>
 </html>
