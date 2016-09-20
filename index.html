@@ -6,18 +6,52 @@
     <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
     <script src="http://127.0.0.1:3001/comm1.js"></script>
     <script src="http://127.0.0.1:3001/comm2.js"></script>
+    <style>
+      .ajax, .ws {
+        text-decoration:line-through;
+      }
+      .notif {
+        font-family: sans-serif;
+        font-size:16px;
+        
+        color: darkblue;
+        margin:20px;
+        padding:10px;
+        border: 1px solid gray;
+        width: 300px;
+        text-align:center;
+      }
+      .check {
+        width: 300px;
+        margin:20px;
+      }
+      .ajax, .ws, .win { 
+        margin: 10px;
+      }
+    </style>
+    <script>
+      /* ---------------
+         SHOW/HIDE CONTROLS
+         --------------- */
+      function hide_controls(){
+        $(".controls").hide();
+      }
+    </script>
   </head>
   <body>
+    <header><h1>Welcome to the Collage of Tears</h1></header>
     <div class="fc">
-      <div>
-        <header><h1>Welcome to the Collage of Tears</h1></header>
+      <div class="controls">
+        
+        <div class="ajax">
         Ajax: <button onclick="say_hi()">HI!</button>
-        <div>
+        </div>
+        <div class="ws">
           WebSocket:
           <button onclick="make_connection()">Make Connection</button>
           <button onclick="say_hello()">HELLO!</button>
         </div>
-        <div>
+        <div class="win">
           Window
           <button onclick="open_win()">Open Win</button>
           <button onclick="say_howdy()">HOWDY!</button>
@@ -25,8 +59,11 @@
         
       </div>
       <div>
-        <img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy" width="200">
-        <img src="http://127.0.0.1:3001/fish.jpg" alt="fish">
+        <!--<img src="http://127.0.0.1:3001/chris-tango_sm.jpg" alt="oy" width="200"> -->
+        <object class="check" data="http://127.0.0.1:3001/chris-tango_sm.jpg" type="image/jpeg">
+          <div class="notif">Intel XDK Flash App Not Running</div>
+
+        </object>
       </div>
     </div>
     <script>
@@ -68,7 +105,7 @@
         otherwin = window.open("http://127.0.0.1:3001/flasher.html");
       }
       function say_howdy(){
-        otherwin.postMessage("hello there!", "*");
+        otherwin.postMessage("hello there!", "http://127.0.0.1:3001");
       }
       
       
@@ -77,6 +114,8 @@
         
       }
       window.addEventListener("message", receiveMessage, false);
+      
+      
     </script>
   </body>
 </html>
